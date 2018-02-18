@@ -1,0 +1,14 @@
+{
+  "cloudwatch.emitMetrics": true,
+  "kinesis.endpoint": "kinesis.us-east-1.amazonaws.com",
+  "firehose.endpoint": "firehose.us-east-1.amazonaws.com",
+  
+  "flows": [
+    {
+      "filePattern": "/var/log/test-case-2.2018-02-16.csv",
+      "skipHeaderLines": 1,
+      "initialPosition": "START_OF_FILE",
+      "deliveryStream": "test-case-2-30s"
+    }
+  ]
+}

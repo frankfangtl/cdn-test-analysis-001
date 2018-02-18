@@ -1,0 +1,26 @@
+{
+  "cloudwatch.emitMetrics": true,
+  "kinesis.endpoint": "kinesis.us-east-1.amazonaws.com",
+  "firehose.endpoint": "firehose.us-east-1.amazonaws.com",
+  
+  "flows": [
+    {
+      "filePattern": "/root/ctrip/cdn-test-analysis-001/client-test/logs/test-case-1/test-case*.csv",
+      "skipHeaderLines": 1,
+      "initialPosition": "START_OF_FILE",
+      "deliveryStream": "test-case-1-30s"
+    },
+    {
+      "filePattern": "/root/ctrip/cdn-test-analysis-001/client-test/logs/test-case-2/test-case-2.2018-02-16.csv",
+      "skipHeaderLines": 1,
+      "initialPosition": "START_OF_FILE",
+      "deliveryStream": "test-case-2-30s"
+    },
+    {
+      "filePattern": "/root/ctrip/cdn-test-analysis-001/client-test/logs/test-case-2-60s/test-case*.csv",
+      "skipHeaderLines": 1,
+      "initialPosition": "START_OF_FILE",
+      "deliveryStream": "test-case-2-60s"
+    }
+  ]
+}
