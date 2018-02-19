@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-BASENAME=test-case-2
-INTERVAL=30
+BASENAME=test-case-2-60s
+INTERVAL=59
 
 function do_log() 
 {

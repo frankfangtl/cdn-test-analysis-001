@@ -1,1 +1,23 @@
 Date,Provider,time_namelookup,time_connect,time_starttransfer,time_total,speed_download,http_code
+
+
+Athena
+(Date date,Provider string,time_namelookup float,time_connect float,time_starttransfer float,time_total float,speed_download float,http_code string)
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS test-case-2-30s.cdn_test (
+  `(date` date,
+  `provider` string,
+  `time_namelookup` float,
+  `time_connect` float,
+  `time_starttransfer` float,
+  `time_total` float,
+  `speed_download` float,
+  `http_code` string 
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = ',',
+  'field.delim' = ','
+) LOCATION 's3://aws-china-cs-sa-group/sample-data/cloudfront-logs/ctrip-201802-test/client-test/test-case-2/'
+TBLPROPERTIES ('has_encrypted_data'='false');

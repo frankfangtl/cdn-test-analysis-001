@@ -10,6 +10,13 @@ LOG=$1
 
 T=$(date '+%Y/%m/%d %T')
 
+#echo "==Limelight=="
+echo -n $T >> $LOG
+echo -n ",Limelight," >> $LOG
+E=http://lm-apiproxy.ctrip.com/api/framework/images4/target/nocache
+curl -o /dev/null -s -w %{time_namelookup},%{time_connect},%{time_starttransfer},%{time_total},%{speed_download},%{http_code} -X POST -F file=@nocache.txt $E  >> $LOG
+echo >> $LOG
+
 #echo "== CloudFront =="
 echo -n $T >> $LOG
 echo -n ",AWS-CF," >> $LOG
@@ -21,13 +28,6 @@ echo >> $LOG
 echo -n $T >> $LOG
 echo -n ",Akamai," >> $LOG
 E=http://apiproxy.ctrip.com/api/framework/images4/target/nocache
-curl -o /dev/null -s -w %{time_namelookup},%{time_connect},%{time_starttransfer},%{time_total},%{speed_download},%{http_code} -X POST -F file=@nocache.txt $E  >> $LOG
-echo >> $LOG
-
-#echo "==Limelight=="
-echo -n $T >> $LOG
-echo -n ",Limelight," >> $LOG
-E=http://lm-apiproxy.ctrip.com/api/framework/images4/target/nocache
 curl -o /dev/null -s -w %{time_namelookup},%{time_connect},%{time_starttransfer},%{time_total},%{speed_download},%{http_code} -X POST -F file=@nocache.txt $E  >> $LOG
 echo >> $LOG
 
@@ -55,6 +55,10 @@ mkdir -p logs/$BASENAME/
 
 while  [ 1 ]; do
 	LOG_FILE="logs/$BASENAME/$BASENAME.$(date +%Y-%m-%d).csv"
+
+	if [ ! -f ${LOG_FILE} ]; then
+		echo "Date,Provider,time_namelookup,time_connect,time_starttransfer,time_total,speed_download,http_code" > ${LOG_FILE}
+	fi
 
 	do_log ${LOG_FILE}
 ##	exit 0
